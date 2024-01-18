@@ -22,7 +22,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     }),
     credentials: "include",
     headers: {
-      "Contnet-Type": "application/json",
+      "Content-Type": "application/json",
     },
   });
   // TODO: Send Phone Verification

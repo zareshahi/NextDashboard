@@ -19,7 +19,7 @@ export default {
             }),
             credentials: "include",
             headers: {
-              "Contnet-Type": "application/json",
+              "Content-Type": "application/json",
             },
           });
           if (!res.ok) return null;
