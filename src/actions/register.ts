@@ -11,7 +11,14 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     return { error: "مقادیر فرم اشتباه هستند" };
   }
 
-  const { phone, password, name } = validatedFields.data;
+  let { phone, password, name } = validatedFields.data;
+
+  if (phone.startsWith("0")) {
+    if (phone.length != 11) {
+      return { error: "شماره وارد شده صحیح نمی‌باشد" };
+    }
+    phone = "+98" + phone.substring(1);
+  }
 
   const res = await fetch(api.signUp, {
     method: "POST",

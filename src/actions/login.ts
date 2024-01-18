@@ -13,8 +13,14 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
     return { error: "مقادیر فرم اشتباه هستند" };
   }
 
-  const { phone, password } = validatedFields.data;
+  let { phone, password } = validatedFields.data;
 
+  if (phone.startsWith("0")) {
+    if (phone.length != 11) {
+      return { error: "شماره وارد شده صحیح نمی‌باشد" };
+    }
+    phone = "+98" + phone.substring(1);
+  }
   try {
     await signIn("credentials", {
       phone,
