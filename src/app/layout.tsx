@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 
-const estedad = localFont({ src: "../assets/fonts/Estedad.woff2" });
+const estedad = localFont({ src: "../assets/fonts/Vazirmatn-RD.woff2" });
 
 export const metadata: Metadata = {
   title: "خزشگر منتظر",
