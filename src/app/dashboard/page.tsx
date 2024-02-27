@@ -1,3 +1,4 @@
+import { signOut } from "@/auth";
 import { Button } from "@/components/ui/button";
 
 const DashboardPage = () => {
@@ -6,6 +7,7 @@ const DashboardPage = () => {
       action={async () => {
         "use server";
         // sign out
+        signOut()
       }}
     >
       <Button type="submit">خروج از حساب کاربری</Button>
