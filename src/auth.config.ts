@@ -1,7 +1,8 @@
 import type { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { LoginSchema } from "./schemas";
-import { api } from "./routes";
+import { getUserByPhone } from "./data/user";
+import bcrypt from "bcryptjs";
 
 export default {
   providers: [
@@ -11,22 +12,12 @@ export default {
         if (validatedFields.success) {
           const { phone, password } = validatedFields.data;
 
-          const res = await fetch(api.signIn, {
-            method: "POST",
-            body: JSON.stringify({
-              phone,
-              password,
-            }),
-            credentials: "include",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
-          if (!res.ok) return null;
+          const user = await getUserByPhone(phone);
+          if (!user || !user.password) return null;
 
-          const user = await res.json();
+          const passwordMatch = await bcrypt.compare(password, user.password);
 
-          return user;
+          if (passwordMatch) return user;
         }
 
         return null;

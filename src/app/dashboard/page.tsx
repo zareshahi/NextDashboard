@@ -7,7 +7,7 @@ const DashboardPage = () => {
       action={async () => {
         "use server";
         // sign out
-        signOut()
+        await signOut();
       }}
     >
       <Button type="submit">خروج از حساب کاربری</Button>

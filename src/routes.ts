@@ -1,10 +1,3 @@
-export const BackendURL = process.env.BACKEND_URL;
-
-export const api = {
-  signIn: BackendURL + "/auth/signin",
-  signUp: BackendURL + "/auth/signup",
-}
-
 export const pages = {
   login: "/auth/login",
   register: "/auth/register",

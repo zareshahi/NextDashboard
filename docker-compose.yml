@@ -1,0 +1,57 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - PGPORT=${POSTGRES_PORT}
+    restart: always
+    # ports:
+    #   - ${POSTGRES_PORT}:5432
+    volumes:
+      - /data/postgres/crawler:/var/lib/postgresql/data/
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    network_mode: "host"
+
+  # redis:
+  #   image: redis:latest
+  #   restart: always
+  #   ports:
+  #     - "${REDIS_PORT}:6379"
+  #   volumes:
+  #     - /data/redis/crawler:/root/redis
+  #     - /data/redis/crawler/redis.conf:/usr/local/etc/redis/redis.conf
+  #   environment:
+  #     - REDIS_PASSWORD=${REDIS_PASSWORD}
+  #   networks:
+  #     - host
+  app:
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
+    image: asr-dashboard:beta
+    restart: always
+    command: npm run prod
+    depends_on:
+      - postgres
+    # ports:
+    #   - '5000:3000'
+    network_mode: "host"
+    env_file:
+      - .env
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+# networks:
+#   host:
+#     name: host
+#     external: true

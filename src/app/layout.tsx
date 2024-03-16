@@ -5,10 +5,9 @@ import "./globals.css";
 const estedad = localFont({ src: "../assets/fonts/Vazirmatn-RD.woff2" });
 
 export const metadata: Metadata = {
-  title: "خزشگر منتظر",
-  description: "منتظر دات آی آر",
+  title: "سامانه تبدیل صوت به متن منتظر",
+  description: "سامانه ای برای تبدیل صوت به متن فارسی",
 };
-
 export default function RootLayout({
   children,
 }: {

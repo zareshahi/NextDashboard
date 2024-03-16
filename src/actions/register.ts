@@ -2,7 +2,9 @@
 
 import { z } from "zod";
 import { RegisterSchema } from "@/schemas";
-import { api } from "@/routes";
+import bcrypt from "bcryptjs";
+import { db } from "@/lib/db";
+import { getUserByPhone } from "@/data/user";
 
 export const register = async (values: z.infer<typeof RegisterSchema>) => {
   const validatedFields = RegisterSchema.safeParse(values);
@@ -13,6 +15,8 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
 
   let { phone, password, name } = validatedFields.data;
 
+  const hashedPassword = await bcrypt.hash(password, 10);
+
   if (phone.startsWith("0")) {
     if (phone.length != 11) {
       return { error: "شماره وارد شده صحیح نمی‌باشد" };
@@ -20,22 +24,20 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     phone = "+98" + phone.substring(1);
   }
 
-  const res = await fetch(api.signUp, {
-    method: "POST",
-    body: JSON.stringify({
+  const existingUser = await getUserByPhone(phone);
+
+  if (existingUser) {
+    return { error: "شماره تکراری است" };
+  }
+
+  await db.user.create({
+    data: {
       name,
       phone,
-      password,
-    }),
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
+      password: hashedPassword,
     },
   });
+
+  return { success: "ثبت نام موفقیت آمیز" };
   // TODO: Send Phone Verification
-  if (res.ok) {
-    return { success: "ثبت نام موفقیت آمیز" };
-  } else {
-    return { error: "وجود خطا در ثبت نام" };
-  }
 };
