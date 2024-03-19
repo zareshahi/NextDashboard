@@ -8,8 +8,8 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
       - PGPORT=${POSTGRES_PORT}
     restart: always
-    ports:
-      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+    # ports:
+    # - ${POSTGRES_PORT}:${POSTGRES_PORT}
     volumes:
       - /data/postgres/asr:/var/lib/postgresql/data/
     logging:
