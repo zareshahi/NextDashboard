@@ -3,11 +3,12 @@
   "version": "2",
   "private": true,
   "scripts": {
-    "prisma": "prisma generate",
+    "prisma": "npx prisma generate",
     "dev": "npm run prisma && next dev -p 3001",
     "build": "next build",
     "start": "npm run prisma && next start",
     "lint": "next lint",
+    "prebuild": "npm run prisma",
     "prod": "npm run build && npm run start"
   },
   "dependencies": {

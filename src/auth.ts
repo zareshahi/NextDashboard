@@ -10,7 +10,7 @@ export const {
 } = NextAuth({
   callbacks: {
     async signIn({ user }) {
-      console.log(user);
+      // console.log(user);
       return true;
     },
     async session({ session }) {

@@ -8,6 +8,7 @@ import {
 } from "@/routes";
 
 const { auth } = NextAuth(authConfig);
+// @ts-ignore: Unreachable code error
 export default auth((req) => {
   const { nextUrl } = req;
   const isLoggedIn = !!req.auth;
