@@ -6,7 +6,7 @@
     "prisma": "npx prisma generate",
     "dev": "npm run prisma && next dev",
     "build": "next build",
-    "start": "next start -H 0.0.0.0",
+    "start": "next start",
     "lint": "next lint",
     "prebuild": "npm run prisma",
     "prod": "npm run build && npm run start"

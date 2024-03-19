@@ -8,10 +8,10 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
       - PGPORT=${POSTGRES_PORT}
     restart: always
-    # ports:
-    #   - ${POSTGRES_PORT}:5432
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
     volumes:
-      - /data/postgres/crawler:/var/lib/postgresql/data/
+      - /data/postgres/asr:/var/lib/postgresql/data/
     logging:
       driver: "json-file"
       options:
